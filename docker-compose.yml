@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  project-gql:
+    image: project-gql:dev
+    container_name: project-gql
+    build: .docker/development
+    volumes:
+      - .:/api
+    ports:
+      - ${API_PORT}:3000
+    networks:
+      - backend
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    container_name: project-gql-db
+    restart: always
+    volumes:
+      - project-gql-db:/data/db
+    ports:
+      - '27018:27017'
+    networks:
+      - backend
+
+volumes:
+  project-gql-db:
+
+networks:
+  backend:
+    driver: bridge

@@ -1,27 +1,24 @@
 import { Module } from '@nestjs/common';
-import { DatabaseController } from './database.controller';
-import { DatabaseService } from './database.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
-@Module({  
-    imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+@Module({
+  imports: [
     MongooseModule.forRootAsync({
-      imports:[ConfigModule],
-      useFactory:(configService:ConfigService) =>{
-        const url = configService.get('MONGO_CONN');
+      useFactory: (configService: ConfigService) => {
+        const host = configService.get('DB_HOST', 'localhost');
+        const port = configService.get('DB_PORT');
+        const DBname = configService.get('DB_NAME');
+        const url = host + ":" + port + "/" + DBname;
 
-        return{
+        return {
           uri: url,
           useNewUrlParser: true,
           useCreateIndex: true,
           useUnifiedTopology: true,
         };
       },
-      inject:[ConfigService],
+      inject: [ConfigService],
     })],
-  controllers: [DatabaseController],
-  providers: [DatabaseService]
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

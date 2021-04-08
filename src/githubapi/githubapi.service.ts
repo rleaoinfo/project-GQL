@@ -21,7 +21,7 @@ export class GithubapiService {
             created_at: item.created_at,
             email: item.email
         }));
-        return Filter;
+        return Filter[0];
     }
 
 

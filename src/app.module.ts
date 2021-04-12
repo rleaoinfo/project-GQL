@@ -3,11 +3,11 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
-import { GithubapiModule } from './githubapi/githubapi.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),DatabaseModule, GithubapiModule],
+    ConfigModule.forRoot({isGlobal: true}),DatabaseModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

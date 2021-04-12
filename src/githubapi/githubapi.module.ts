@@ -5,5 +5,6 @@ import { GithubApiHttpClient } from './github-api-http-client'
 @Module({
     imports: [HttpModule],
     providers: [GithubapiService, GithubApiHttpClient],
+    exports:[GithubapiService]
 })
 export class GithubapiModule { }

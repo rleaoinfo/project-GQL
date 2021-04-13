@@ -3,22 +3,22 @@ import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class CreateUserDTO {
-    @Field()
+    @Field({nullable: true})
     login: string
-    @Field()
+    @Field({nullable: true})
     id: string;
-    @Field()
+    @Field({nullable: true})
     node_id: string;
-    @Field()
+    @Field({nullable: true})
     name: string;
-    @Field()
+    @Field({nullable: true})
     html_url: string
-    @Field()
+    @Field({nullable: true})
     repos_url: string;
-    @Field()
+    @Field({nullable: true})
     created_at: string;
-    @Field()
+    @Field({nullable: true})
     updated_at: string;
-    @Field()
+    @Field({nullable: true})
     email: string
 }

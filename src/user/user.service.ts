@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './user.schema';
 import { UserInput } from './input/user.input';
 import { GithubapiService } from 'src/githubapi/githubapi.service';
-import { dataAdjust } from 'src/utils/user.utils';
 
 @Injectable()
 export class UserService {
@@ -24,18 +23,20 @@ export class UserService {
   async find(username: string): Promise<any> {
     const mongoFind = await this.userModel.findOne({ name: username }).exec();
     if (mongoFind) {
-      return dataAdjust(mongoFind);
+      return mongoFind;
     }
-    else {
-      const gitFind = await this.gitService.getUser(username);
-      if (gitFind) {
-        return dataAdjust(gitFind)
-      }
-      else {
-        return { response: "error 404" }
-      }
+    const gitFind = await this.gitService.getUser(username);
+    const newUser = await this.save(gitFind);
 
-
-    }
+    return newUser;
+    
   }
+
+  save(user : any){
+    const newUser = new this.userModel(user);
+    return newUser.save();
+  }
+
+
 }
+

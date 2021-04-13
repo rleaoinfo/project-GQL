@@ -2,22 +2,22 @@ import { Field, InputType, Int } from "@nestjs/graphql";
 
 @InputType()
 export class UserInput {
-    @Field()
+    @Field({nullable: true})
     readonly login: string;
-    @Field()
+    @Field({nullable: true})
     readonly id: string;
-    @Field()
+    @Field({nullable: true})
     readonly node_id: string;
-    @Field()
+    @Field({nullable: true})
     readonly name: string;
-    @Field()
+    @Field({nullable: true})
     readonly html_url: string;
-    @Field()
+    @Field({nullable: true})
     readonly repos_url: string;
-    @Field()
+    @Field({nullable: true})
     readonly created_at: string;
-    @Field()
+    @Field({nullable: true})
     readonly updated_at: string;
-    @Field()
+    @Field({nullable: true})
     readonly email: string;
 }

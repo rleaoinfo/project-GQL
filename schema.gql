@@ -16,22 +16,5 @@ type CreateUserDTO {
 
 type Query {
   hello: String!
-  users: [CreateUserDTO!]!
   user(name: String!): CreateUserDTO!
-}
-
-type Mutation {
-  createUser(inputs: UserInput!): CreateUserDTO!
-}
-
-input UserInput {
-  login: String
-  id: String
-  node_id: String
-  name: String
-  html_url: String
-  repos_url: String
-  created_at: String
-  updated_at: String
-  email: String
 }

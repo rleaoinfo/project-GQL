@@ -14,20 +14,12 @@ export class UserResolver {
       return 'hello world';
     }
 
-    @Query(()=> [CreateUserDTO])
-    async users() {
-      return await this.userService.findAll();
-    }
-
     @Query(()=> CreateUserDTO)
     async user(@Args('name') name: string) {
       return await this.userService.find(name);
     }
 
-    @Mutation(()=> CreateUserDTO)
-    async createUser(@Args('inputs') input: UserInput) {
-      return await this.userService.create(input); 
-    }
+ 
     
 }
 

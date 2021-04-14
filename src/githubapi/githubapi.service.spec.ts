@@ -1,5 +1,3 @@
-import { HttpService } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { GithubApiHttpClient } from './github-api-http-client';
 import { GithubapiService } from './githubapi.service';

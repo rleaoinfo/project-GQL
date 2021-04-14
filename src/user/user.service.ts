@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { GithubapiService } from 'src/githubapi/githubapi.service';
-import { UserApiProvider } from './user-api-provider';
+import { UserRepository } from './user-repository';
 
 @Injectable()
 export class UserService {
   constructor(
-    private readonly userApiService: UserApiProvider,
+    private readonly userRepository: UserRepository,
     private readonly gitService: GithubapiService,) { }
 
   async find(username: string): Promise<any> {
-    const dataFind = await this.userApiService.findUser(username);
+    const dataFind = await this.userRepository.findUser(username);
     if (dataFind) {
       return dataFind;
     }
     const gitFind = await this.gitService.getUser(username);
-    const newUser = await this.userApiService.save(gitFind);
+    const newUser = await this.userRepository.save(gitFind);
     return newUser;
 
   }

@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GithubapiService } from 'src/githubapi/githubapi.service';
-import { UserApiProvider } from './user-api-provider';
+import { UserRepository } from './user-repository';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
 
-  const usernameMock = {
+  const userRepositoryMock = {
     findUser: () => Promise.resolve({ username: "mojombo" }),
     save:(user: any) => Promise.resolve({...user})
   }
@@ -18,10 +18,10 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService, UserApiProvider,GithubapiService],
+      providers: [UserService, UserRepository,GithubapiService],
     })
-      .overrideProvider(UserApiProvider)
-      .useValue(usernameMock)
+      .overrideProvider(UserRepository)
+      .useValue(userRepositoryMock)
       .overrideProvider(GithubapiService)
       .useValue(githubapimock)
       .compile();
@@ -40,7 +40,7 @@ describe('UserService', () => {
 
   
   it('should find', async () => {
-    jest.spyOn(usernameMock, 'findUser').mockImplementationOnce(()=> Promise.resolve(null))
+    jest.spyOn(userRepositoryMock, 'findUser').mockImplementationOnce(()=> Promise.resolve(null))
     const user = await service.find("mojombo")
     expect(user).toBeDefined();
   });

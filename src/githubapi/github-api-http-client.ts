@@ -15,6 +15,11 @@ export class GithubApiHttpClient {
         return this.http.get(apiGithub + '/users/' + username).pipe(map((response) => response.data)).toPromise().catch((err)=> this.handlerError(err));
     }
 
+    getRepo(repos_url: string){
+        return this.http.get(repos_url).pipe(map((response) => response.data)).toPromise().catch((err)=> this.handlerError(err));
+ 
+    }
+
     private handlerError(err: any) {
         const { response: { status = 500, statusText = '' } = {} } = err;
         const error = new HttpException({ status, statusText }, status);

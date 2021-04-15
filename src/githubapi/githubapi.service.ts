@@ -1,12 +1,10 @@
-import { HttpService, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { map } from 'rxjs/operators';
+import { Injectable } from '@nestjs/common';
 import { GithubApiHttpClient } from './github-api-http-client';
 
 @Injectable()
 export class GithubapiService {
     constructor(
-        private readonly githubApihttpclient : GithubApiHttpClient) { }
+        private readonly githubApihttpclient: GithubApiHttpClient) { }
 
     async getUser(user: string) {
         const userGithub = await this.githubApihttpclient.getUser(user)
@@ -22,6 +20,19 @@ export class GithubapiService {
             email: item.email
         }));
         return Filter[0];
+    }
+
+    async getRepos(user_repo: string) {
+        const repo = await this.githubApihttpclient.getRepo(user_repo)
+        const Filter = repo.map((item: { id: any; node_id: any; name: any; full_name: any; description: any; html_url: any;}) => ({
+            id: item.id,
+            node_id: item.node_id,
+            name: item.name,
+            full_name: item.full_name,
+            description: item.description,
+            html_url: item.html_url,
+        }));
+        return Filter;
     }
 
 

@@ -24,7 +24,8 @@ export class GithubapiService {
 
     async getRepos(user_repo: string) {
         const repo = await this.githubApihttpclient.getRepo(user_repo)
-        const Filter = repo.map((item: { id: any; node_id: any; name: any; full_name: any; description: any; html_url: any;}) => ({
+        const Filter = repo.map((item: { owner: any, id: any; node_id: any; name: any; full_name: any; description: any; html_url: any; }) => ({
+            owner_id: item.owner.id,
             id: item.id,
             node_id: item.node_id,
             name: item.name,

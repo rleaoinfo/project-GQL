@@ -1,8 +1,9 @@
 import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
+import { RepoDTO } from "./repo.dto";
 
 
 @ObjectType()
-export class CreateUserDTO {
+export class UserDTO {
     @Field({nullable: true})
     login: string
     @Field({nullable: true})
@@ -21,4 +22,6 @@ export class CreateUserDTO {
     updated_at: string;
     @Field({nullable: true})
     email: string
+    @Field(()=> [RepoDTO],{nullable:true})
+    repos: [RepoDTO];
 }

@@ -2,7 +2,7 @@ import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
 
 
 @ObjectType()
-export class CreateRepoDTO {
+export class RepoDTO {
     @Field({nullable: true})
     owner_id: string
     @Field({nullable: true})

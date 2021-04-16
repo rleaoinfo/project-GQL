@@ -27,4 +27,4 @@ export class Repo {
     html_url: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(Repo);
+export const RepoSchema = SchemaFactory.createForClass(Repo);

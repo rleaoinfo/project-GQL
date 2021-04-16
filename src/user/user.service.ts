@@ -19,14 +19,13 @@ export class UserService {
 
   }
 
-  async repoFind(id : string): Promise<any>{
-    const dataFind = await this.repoFind(id);
-    if(dataFind){
+  async repoFind(user : any): Promise<any>{
+    const {id , repos_url} = user
+    const dataFind = await this.userRepository.findRepo(id);
+    if(dataFind.length > 0){
       return dataFind;
     }
-    const username = await this.userRepository.usernameById(id)
-    const userRepo = await this.userRepository.findUser(username)
-    const gitFind = await this.gitService.getRepos(userRepo.repos_url)
+    const gitFind = await this.gitService.getRepos(repos_url)
     const newRepo = await this.userRepository.saveRepo(gitFind)
     return newRepo;
 

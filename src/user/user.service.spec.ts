@@ -11,12 +11,12 @@ describe('UserService', () => {
     findUser: () => Promise.resolve({ username: "mojombo" }),
     save: (user: any) => Promise.resolve({ ...user }),
     findRepo: () => Promise.resolve({ownerId : 1}),
-    saveRepo: (repo:any) => Promise.resolve({...repo})
+    saveRepo: (repo:any[]) => Promise.resolve({repo})
   }
 
   const githubapimock = {
     getUser: () => Promise.resolve({ username: "mojombo" }),
-    getRepo: () => Promise.resolve({ repository_url})
+    getRepos: () => Promise.resolve({repository_url})
   }
 
 
@@ -51,7 +51,7 @@ describe('UserService', () => {
 
   
   it('should define repo', async () => {
-    jest.spyOn(userRepositoryMock, 'findRepo').mockImplementationOnce(() => Promise.resolve(null))
+    jest.spyOn(userRepositoryMock, 'findRepo').mockImplementationOnce(() => Promise.resolve([] as any))
     const repo = await service.repoFind("mojombo")
     expect(repo).toBeDefined();
   });

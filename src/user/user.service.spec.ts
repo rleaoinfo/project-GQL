@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 describe('UserService', () => {
   let service: UserService;
   const repository_url =  "https://api.github.com/users/mojombo/repos"
+  const repo_test = "test"
 
   const userRepositoryMock = {
     findUser: () => Promise.resolve({ username: "mojombo" }),
@@ -61,5 +62,6 @@ describe('UserService', () => {
     const repo = await service.repoFind("mojombo")
     expect(repo).toBeDefined();
   });
+
 
 });

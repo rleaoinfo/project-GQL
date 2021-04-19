@@ -8,7 +8,7 @@ describe('GithubapiService', () => {
   const repoMock = 'https://api.github.com/users/mojombo/repos';
   const githubHttpmock = {
     getUser: (username: any) => Promise.resolve({...userMock, login: username}),
-    getRepo: (user_repo: any) => Promise.resolve({user_repo : repoMock}),
+    getRepo: () => Promise.resolve([{}]),
   }
 
   beforeEach(async () => {
@@ -34,9 +34,19 @@ describe('GithubapiService', () => {
 
   it('should getRepos ', async () => {
     const repo = await service.getRepos('url')
-    
     expect(repo).toBeDefined();
   });
 
+
+  it('should return null from GithubApiHttpClient', async () => {
+    jest
+    .spyOn(githubHttpmock, 'getRepo')
+    .mockImplementationOnce(() => Promise.resolve(null));
+    
+    const repos: any[] = await service.getRepos('https://api.github.com');
+    
+    expect(repos).toBeInstanceOf(Array);
+    expect(repos.length).toBe(0);
+    });
 
 });

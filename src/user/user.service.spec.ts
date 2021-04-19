@@ -10,7 +10,7 @@ describe('UserService', () => {
   const userRepositoryMock = {
     findUser: () => Promise.resolve({ username: "mojombo" }),
     save: (user: any) => Promise.resolve({ ...user }),
-    findRepo: () => Promise.resolve({ownerId : 1}),
+    findRepo: () => Promise.resolve([{ownerId : 1}]),
     saveRepo: (repo:any[]) => Promise.resolve({repo})
   }
 
@@ -47,6 +47,12 @@ describe('UserService', () => {
     jest.spyOn(userRepositoryMock, 'findUser').mockImplementationOnce(() => Promise.resolve(null))
     const user = await service.find("mojombo")
     expect(user).toBeDefined();
+  });
+  
+
+  it('should define repo with obj', async () => {
+    const repo = await service.repoFind("mojombo")
+    expect(repo).toBeDefined();
   });
 
   

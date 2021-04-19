@@ -23,8 +23,8 @@ export class GithubapiService {
     }
 
     async getRepos(user_repo: string) {
-        const repo = await this.githubApihttpclient.getRepo(user_repo)
-        const Filter = repo.map((item: { owner: any, id: any; node_id: any; name: any; full_name: any; description: any; html_url: any; }) => ({
+        const repo  = await this.githubApihttpclient.getRepo(user_repo)
+        const Filter = (Array.isArray(repo) && repo.map((item: { owner: any, id: any; node_id: any; name: any; full_name: any; description: any; html_url: any; }) => ({
             owner_id: item.owner.id,
             id: item.id,
             node_id: item.node_id,
@@ -32,7 +32,7 @@ export class GithubapiService {
             full_name: item.full_name,
             description: item.description,
             html_url: item.html_url,
-        }));
+        })));
         return Filter;
     }
 

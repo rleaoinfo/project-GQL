@@ -5,17 +5,18 @@ import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
+  const repository_url =  "https://api.github.com/users/mojombo/repos"
 
   const userRepositoryMock = {
     findUser: () => Promise.resolve({ username: "mojombo" }),
     save: (user: any) => Promise.resolve({ ...user }),
-    findRepo: () => Promise.resolve({ id: "1" }),
-    saveRepo: (repo: any) => Promise.resolve({ ...repo })
+    findRepo: () => Promise.resolve({ownerId : 1}),
+    saveRepo: (repo:any) => Promise.resolve({...repo})
   }
 
   const githubapimock = {
     getUser: () => Promise.resolve({ username: "mojombo" }),
-    getRepo: () => Promise.resolve({ user_repo: "https://api.github.com/users/mojombo/repos" })
+    getRepo: () => Promise.resolve({ repository_url})
   }
 
 

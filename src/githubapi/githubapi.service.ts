@@ -23,16 +23,21 @@ export class GithubapiService {
     }
 
     async getRepos(user_repo: string) {
-        const repo = await this.githubApihttpclient.getRepo(user_repo)
-        const Filter = repo.map((item: { id: any; node_id: any; name: any; full_name: any; description: any; html_url: any;}) => ({
-            id: item.id,
-            node_id: item.node_id,
-            name: item.name,
-            full_name: item.full_name,
-            description: item.description,
-            html_url: item.html_url,
-        }));
-        return Filter;
+        const repos = await this.githubApihttpclient.getRepo(user_repo);
+        const filteredRepos =
+            repos?.map(
+                ({ owner, id, node_id, name, full_name, description, html_url }) => ({
+                    owner,
+                    id,
+                    node_id,
+                    name,
+                    full_name,
+                    description,
+                    html_url,
+                }),
+            ) || [];
+
+        return filteredRepos;
     }
 
 

@@ -8,7 +8,7 @@ describe('GithubapiService', () => {
   const repoMock = 'https://api.github.com/users/mojombo/repos';
   const githubHttpmock = {
     getUser: (username: any) => Promise.resolve({...userMock, login: username}),
-    getRepo: () => Promise.resolve([{}]),
+    getRepo: () => Promise.resolve([{owner:{id: 10}}]),
   }
 
   beforeEach(async () => {

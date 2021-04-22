@@ -17,9 +17,7 @@ export class UserRepository {
     }
 
     async findRepo(ownerId: string): Promise<any> {
-        console.log(ownerId)
         const mongoFind = await this.repoModel.find({ owner_id: ownerId }).exec();
-        console.log(mongoFind)
         return mongoFind
     }
 

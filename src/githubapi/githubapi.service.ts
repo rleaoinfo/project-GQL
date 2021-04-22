@@ -37,7 +37,6 @@ export class GithubapiService {
                     html_url,
                 }),
             ) || [];
-        console.log(filteredRepos)
         return filteredRepos;
     }
 

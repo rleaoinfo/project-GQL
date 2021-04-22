@@ -22,4 +22,4 @@ export const RepoSchema = new Schema({
     description: String,
     html_url: String,
 }, { timestamps: { createdAt: 'created_at_mongo' } }
-).index({ created_at_mongo: 1 }, { expireAfterSeconds: 3600 });
+).index({ created_at_mongo: 1 }, { expire: '1h' });

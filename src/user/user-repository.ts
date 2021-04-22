@@ -17,7 +17,9 @@ export class UserRepository {
     }
 
     async findRepo(ownerId: string): Promise<any> {
+        console.log(ownerId)
         const mongoFind = await this.repoModel.find({ owner_id: ownerId }).exec();
+        console.log(mongoFind)
         return mongoFind
     }
 
@@ -27,13 +29,7 @@ export class UserRepository {
     }
 
     saveRepo(repo: any[]) {
-        let repoArray:any[]
-        repo.forEach(element => {
-            const newRepo = new this.repoModel(element)
-            newRepo.save();
-
-        });
-        return repo;
+        return this.repoModel.insertMany(repo);
     }
 
     async usernameById(owner_id: any) {

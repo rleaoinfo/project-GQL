@@ -28,4 +28,4 @@ export const UserSchema = new Schema({
     updated_at: String,
     email: String,
 }, { timestamps: { createdAt: 'created_at_mongo' } }
-).index({ created_at_mongo: 1 }, { expireAfterSeconds: 3600});
+).index({ created_at_mongo: 1 }, { expire: '1h'});

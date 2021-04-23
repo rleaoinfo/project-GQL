@@ -6,7 +6,8 @@ import { UserRepository } from './user-repository';
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly gitService: GithubapiService,) { }
+    private readonly gitService: GithubapiService,
+  ) {}
 
   async find(username: string): Promise<any> {
     const dataFind = await this.userRepository.findUser(username);
@@ -16,21 +17,16 @@ export class UserService {
     const gitFind = await this.gitService.getUser(username);
     const newUser = await this.userRepository.save(gitFind);
     return newUser;
-
   }
 
-  async repoFind(user : any): Promise<any>{
-    const {id , repos_url} = user
+  async repoFind(user: any): Promise<any> {
+    const { id, repos_url } = user;
     const dataFind = await this.userRepository.findRepo(id);
-    if(dataFind.length > 0){
+    if (dataFind.length > 0) {
       return dataFind;
     }
-    const gitFind = await this.gitService.getRepos(repos_url)
-    const newRepo = await this.userRepository.saveRepo(gitFind)
+    const gitFind = await this.gitService.getRepos(repos_url);
+    const newRepo = await this.userRepository.saveRepo(gitFind);
     return newRepo;
-
   }
-  
-
 }
-

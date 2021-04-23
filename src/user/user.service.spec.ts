@@ -5,21 +5,19 @@ import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
-  const repository_url =  "https://api.github.com/users/mojombo/repos"
-  const repo_test = "test"
+  const repository_url = 'https://api.github.com/users/mojombo/repos';
 
   const userRepositoryMock = {
-    findUser: () => Promise.resolve({ username: "mojombo" }),
+    findUser: () => Promise.resolve({ username: 'mojombo' }),
     save: (user: any) => Promise.resolve({ ...user }),
-    findRepo: () => Promise.resolve([{ownerId : 1}]),
-    saveRepo: (repo:any[]) => Promise.resolve({repo})
-  }
+    findRepo: () => Promise.resolve([{ ownerId: 1 }]),
+    saveRepo: (repo: any[]) => Promise.resolve({ repo }),
+  };
 
   const githubapimock = {
-    getUser: () => Promise.resolve({ username: "mojombo" }),
-    getRepos: () => Promise.resolve({repository_url})
-  }
-
+    getUser: () => Promise.resolve({ username: 'mojombo' }),
+    getRepos: () => Promise.resolve({ repository_url }),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -39,29 +37,28 @@ describe('UserService', () => {
   });
 
   it('should find', async () => {
-    const user = await service.find("mojombo")
+    const user = await service.find('mojombo');
     expect(user).toBeDefined();
   });
-
 
   it('should define user', async () => {
-    jest.spyOn(userRepositoryMock, 'findUser').mockImplementationOnce(() => Promise.resolve(null))
-    const user = await service.find("mojombo")
+    jest
+      .spyOn(userRepositoryMock, 'findUser')
+      .mockImplementationOnce(() => Promise.resolve(null));
+    const user = await service.find('mojombo');
     expect(user).toBeDefined();
   });
-  
 
   it('should define repo with obj', async () => {
-    const repo = await service.repoFind("mojombo")
+    const repo = await service.repoFind('mojombo');
     expect(repo).toBeDefined();
   });
 
-  
   it('should define repo', async () => {
-    jest.spyOn(userRepositoryMock, 'findRepo').mockImplementationOnce(() => Promise.resolve([] as any))
-    const repo = await service.repoFind("mojombo")
+    jest
+      .spyOn(userRepositoryMock, 'findRepo')
+      .mockImplementationOnce(() => Promise.resolve([] as any));
+    const repo = await service.repoFind('mojombo');
     expect(repo).toBeDefined();
   });
-
-
 });

@@ -1,37 +1,31 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, PromiseProvider } from 'mongoose';
+import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema, PromiseProvider } from 'mongoose';
 
 
 export type UserDocument = Document;
 
-@Schema()
 export class User {
-    @Prop()
     login: string;
-
-    @Prop()
     id: string;
-
-    @Prop()
     node_id: string;
-
-    @Prop()
     name: string;
-
-    @Prop()
     html_url: string;
-
-    @Prop()
     repos_url: string;
-
-    @Prop()
     created_at: string;
-
-    @Prop()
     updated_at: string;
-
-    @Prop()
     email: string;
+    created_at_mongo: Date;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = new Schema({
+    login: String,
+    id: String,
+    node_id: String,
+    name: String,
+    html_url: String,
+    repos_url: String,
+    created_at: String,
+    updated_at: String,
+    email: String,
+}, { timestamps: { createdAt: 'created_at_mongo' } }
+).index({ created_at_mongo: 1 }, { expire: '1h'});

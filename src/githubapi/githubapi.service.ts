@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'node:constants';
 import { GithubApiHttpClient } from './github-api-http-client';
 
 @Injectable()
@@ -26,8 +27,8 @@ export class GithubapiService {
         const repos = await this.githubApihttpclient.getRepo(user_repo);
         const filteredRepos =
             repos?.map(
-                ({ owner, id, node_id, name, full_name, description, html_url }) => ({
-                    owner,
+                ({owner, id, node_id, name, full_name, description, html_url }) => ({
+                    owner_id : owner.id,
                     id,
                     node_id,
                     name,
@@ -36,7 +37,6 @@ export class GithubapiService {
                     html_url,
                 }),
             ) || [];
-
         return filteredRepos;
     }
 
